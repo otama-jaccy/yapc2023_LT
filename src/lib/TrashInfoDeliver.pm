@@ -30,11 +30,13 @@ sub send_to_slack {
   my $response = $ht->request ( 'POST', $url, $header);
 }
 
+# 曜日をlocaltimeのwdayに変換する
 sub day_of_week2wday {
   my $day_of_week = shift;
   return index("日月火水木金土", $day_of_week)+1;
 }
 
+# 渡された曜日（例：土）が次のゴミ捨て日かを判別
 sub is_next_trash_day {
   my $trash_day_of_week = shift;
   my $trash_wday = day_of_week2wday($trash_day_of_week);
@@ -57,14 +59,14 @@ sub send_trash_info {
   for my $trash_type (keys $trash_info->%*) {
     my $trash_day = $trash_info->{$trash_type};
 
-    # 曜日が明日でないものは弾く
+    # 曜日が次のゴミ捨て日でないものは弾く
     my $days = $trash_day->{"day_of_weeks"} // [$trash_day->{"day_of_week"}];
     my @active_days = grep { is_next_trash_day($_) } $days->@*;
     if ($#active_days<0) {
       next;
     }
 
-    # 隔週で今週でないものは弾く
+    # 隔週であるゴミ捨てで今週でないものは弾く
     my $today = localtime;
     if ($trash_day->{"type"} eq "biweekly" && $trash_day->{"order"}!=int($today->mday/7)+1){
       next;

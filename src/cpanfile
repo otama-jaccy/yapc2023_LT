@@ -1,0 +1,8 @@
+requires 'URI';
+requires 'HTTP::Tiny';
+requires 'JSON';
+requires 'HTML::TagParser';
+requires 'URI::Fetch';
+requires 'HTML::TreeBuilder::XPath';
+requires 'IO::Socket::SSL';
+requires 'Net::SSLeay';

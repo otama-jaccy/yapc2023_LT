@@ -61,7 +61,7 @@ sub send_trash_info {
         # 曜日が次のゴミ捨て日でないものは弾く
         my $days = $trash_day->{"day_of_weeks"} // [$trash_day->{"day_of_week"}];
         my @active_days = grep { is_next_trash_day($_) } $days->@*;
-        if ($#active_days<0) {
+        if (@active_days == 0) {
             next;
         }
 

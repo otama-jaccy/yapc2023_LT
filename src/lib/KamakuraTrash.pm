@@ -16,8 +16,7 @@ sub get_trash_info_by_city {
 
     # ゴミタイプの取り出し
     my $header = shift @trs;
-    my @trash_types = $header->findnodes('//th');
-    shift @trash_types;
+    my (undef, @trash_types) = $header->findnodes('//th');
     @trash_types = map {$_->findvalue('.')} @trash_types;
     @trash_types = map {decode_utf8($_)} @trash_types;
 

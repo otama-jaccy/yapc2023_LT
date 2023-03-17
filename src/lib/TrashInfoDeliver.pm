@@ -10,8 +10,7 @@ use Time::Piece;
 
 use Data::Dumper;
 
-sub send_to_slack {
-    my @trash_types = @_;
+sub send_to_slack(@trash_types) {
     my $trash_text = join("と", @trash_types);
 
     my $url = URI->new($ENV{"SLACK_WEBHOOK_URL"});
@@ -30,14 +29,12 @@ sub send_to_slack {
 }
 
 # 曜日をlocaltimeのwdayに変換する
-sub day_of_week2wday {
-    my $day_of_week = shift;
+sub day_of_week2wday($day_of_week) {
     return index("日月火水木金土", $day_of_week)+1;
 }
 
 # 渡された曜日（例：土）が次のゴミ捨て日かを判別
-sub is_next_trash_day {
-    my $trash_day_of_week = shift;
+sub is_next_trash_day($trash_day_of_week) {
     my $trash_wday = day_of_week2wday($trash_day_of_week);
 
     # 金曜、土曜は日曜として扱う
@@ -49,9 +46,7 @@ sub is_next_trash_day {
     return $today_wday+1 == $trash_wday;
 }
 
-sub send_trash_info {
-    my ($trash_info_by_city, $city_name) = @_;
-
+sub send_trash_info($trash_info_by_city, $city_name) {
     my $trash_info = $trash_info_by_city->{$city_name};
     my @tommorow_trash = ();
 

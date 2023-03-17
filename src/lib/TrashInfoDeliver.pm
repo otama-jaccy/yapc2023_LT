@@ -48,7 +48,7 @@ sub is_next_trash_day($trash_day_of_week) {
 
 sub send_trash_info($trash_info_by_city, $city_name) {
     my $trash_info = $trash_info_by_city->{$city_name};
-    my @tommorow_trash = ();
+    my @tommorow_trash;
 
     for my $trash_type (keys $trash_info->%*) {
         my $trash_day = $trash_info->{$trash_type};

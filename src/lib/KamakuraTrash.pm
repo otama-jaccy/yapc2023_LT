@@ -20,12 +20,12 @@ sub get_trash_info_by_city {
     @trash_types = map { decode_utf8($_->findvalue('.')) } @trash_types;
 
     # 各町のゴミ情報を追加していく
-    my %trash_info_by_city = ();
+    my %trash_info_by_city;
     for my $row (@trs) {
         my @tds = $row->findvalues('./td');
         my $city_name = decode_utf8(shift @tds);
 
-        my %trash_info = ();
+        my %trash_info;
         for my $i (0 .. $#tds) {
             my $trash_type = $trash_types[$i];
             my $trash_day = decode_utf8($tds[$i]);

@@ -1,6 +1,4 @@
-use 5.36.0;
-use strict;
-use warnings;
+use v5.36;
 use utf8;
 
 use Encode qw/decode_utf8/;

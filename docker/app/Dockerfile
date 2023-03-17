@@ -4,4 +4,5 @@ WORKDIR "/src"
 
 RUN cpanm Carmel --notest
 
-CMD carmel install && carmel exec -- perl main.pl
+CMD carmel install && \
+  carmel exec -- perl -Ilib main.pl

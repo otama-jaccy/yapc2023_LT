@@ -2,11 +2,6 @@ FROM perl:5.36
 
 WORKDIR "/src"
 
-RUN cpanm URI
-RUN cpanm HTTP::Tiny
-RUN cpanm JSON
-RUN cpanm HTML::TagParser
-RUN cpanm URI::Fetch
-RUN cpanm HTML::TreeBuilder::XPath
+RUN cpanm Carmel --notest
 
-CMD perl main.pl
+CMD carmel install && carmel exec -- perl main.pl

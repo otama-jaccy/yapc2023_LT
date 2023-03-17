@@ -28,6 +28,7 @@ sub send_to_slack {
   };
 
   my $response = $ht->request ( 'POST', $url, $header);
+  die($response->{'content'}) if $response->{'status'} >= 300;
 }
 
 # 曜日をlocaltimeのwdayに変換する
